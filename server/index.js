@@ -2,13 +2,17 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const UserModel = require('./models/Users')
+const db = require('./config/keys').mongoURI
 
 const cors = require('cors')
 
 app.use(express.json())
 app.use(cors())
 
-mongoose.connect('mongodb+srv://User123456789:DSuCkS0k7so2afge@cluster0.ssxwj.mongodb.net/mangoDB?retryWrites=true&w=majority')
+mongoose
+    .connect(db)
+    .then(() => console.log("MongoDB connected..."))
+    .catch((err) => console.log(err))
 
 app.listen(3001, (req, res) => {
     console.log("Listening on port 3001...")
